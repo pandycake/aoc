@@ -1,20 +1,19 @@
+""" https://adventofcode.com/2021/day/1 """
+
 from typing import List
 
-"""
-How many measurements are larger than the previous measurement?
-https://adventofcode.com/2021/day/1
-"""
 
 def generate_correct_answer():
     with open("input.txt", "r") as f:
         records = f.readlines()
-        values = [int(record.strip()) for record in records]
-        # Second star requires an altered list:
-        values = calculate_window(values)
-        result = compare_measurements(values)
+        records = [record.strip() for record in records]
 
-    return result
-    
+        print(compare_measurements(records))
+
+        # Second assignment requires an altered list:
+        values = calculate_window(values)
+        print(compare_measurements(values))
+
 
 def compare_measurements(records: List[int]) -> int:
     total = 0
@@ -24,14 +23,15 @@ def compare_measurements(records: List[int]) -> int:
 
     return total
 
+
 def calculate_window(records: List[int]) -> int:
     records_window = []
 
-    for i in range (0, len(records) - 2):
-        records_window.append(sum(records[i : i + 3]))
+    for i in range(0, len(records) - 2):
+        records_window.append(sum(records[i: i + 3]))
 
     return records_window
 
 
 if __name__ == "__main__":
-    print(generate_correct_answer())
+    generate_correct_answer()

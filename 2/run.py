@@ -1,7 +1,4 @@
-"""
-What do you get if you multiply your final horizontal position by your final depth?
-https://adventofcode.com/2021/day/2
-"""
+""" https://adventofcode.com/2021/day/2 """
 
 from typing import List
 
