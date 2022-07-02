@@ -29,7 +29,7 @@ class Board:
                 continue
         return min(index_of_bingos)
 
-    def print(self) -> None:
+    def __str__(self) -> None:
         for row in self.rows:
             print(row)
 
