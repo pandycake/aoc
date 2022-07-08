@@ -2,8 +2,6 @@
 
 from typing import List, Tuple
 import collections
-import numpy as np
-
 
 class Coordinate:
     __slots__ = ['x', 'y']
@@ -115,8 +113,7 @@ def second_assignment(pipes: List[Pipe]) -> int:
         coverage += straight_coverage
         coverage += diagonal_coverage
 
-    duplicates = [item for item, count in collections.Counter(
-        coverage).items() if count > 1]
+    duplicates = [item for item, count in collections.Counter(coverage).items() if count > 1]
 
     return len(duplicates)
 
