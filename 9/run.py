@@ -76,7 +76,7 @@ def generate_correct_answer():
         for row in measurements:
             points.append([int(x) for x in row.strip()])
         m = Measurements(points)
-        # print(first_assignment(m))
+        print(first_assignment(m))
         print(m.second_assignment())
 
 if __name__ == "__main__":
