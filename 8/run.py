@@ -111,7 +111,7 @@ def second_assignment(signals: List) -> int:
 
 
 def generate_correct_answer():
-    with open("/Users/andreavandenhooff/aoc/8/input.txt", "r") as f:
+    with open("input.txt", "r") as f:
         records = f.readlines()
         combinations = []
         for record in records:
