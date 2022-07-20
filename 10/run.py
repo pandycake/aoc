@@ -28,6 +28,7 @@ POINTS_INCOMPLETE = {
 
 def find_wrong_chars(lines: List[List[str]]) -> List[str]:
     wrong_chars = []
+
     for line in lines:
         stack = deque()
 
@@ -96,4 +97,4 @@ if __name__ == "__main__":
     with open("input.txt", "r") as f:
         navigations = [x.strip() for x in f.readlines()]
         print('Star 1: ' + str(first_star(navigations)))
-        print('Star 2 ' + str(second_star(navigations)))
+        print('Star 2: ' + str(second_star(navigations)))

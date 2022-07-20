@@ -38,4 +38,4 @@ if __name__ == "__main__":
         numbers.sort()
 
         print('Star 1: ' + str(first_star(numbers)))
-        print('Star 2 ' + str(second_star(numbers)))
+        print('Star 2: ' + str(second_star(numbers)))

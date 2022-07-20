@@ -56,4 +56,4 @@ if __name__ == "__main__":
         records = [record.strip() for record in records]
 
         print('Star 1: ' + str(first_star(records)))
-        print('Star 2 ' + str(second_star(records)))
+        print('Star 2: ' + str(second_star(records)))

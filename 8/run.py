@@ -133,4 +133,4 @@ if __name__ == "__main__":
             combinations.append(tuple(line))
 
         print('Star 1: ' + str(first_star(combinations)))
-        print('Star 2 ' + str(second_star(combinations)))
+        print('Star 2: ' + str(second_star(combinations)))

@@ -94,4 +94,4 @@ if __name__ == "__main__":
         boards = get_boards(records[2:])
 
         print('Star 1: ' + str(first_star(numbers, boards)))
-        print('Star 2 ' + str(second_star(numbers, boards)))
+        print('Star 2: ' + str(second_star(numbers, boards)))

@@ -132,4 +132,4 @@ if __name__ == "__main__":
             pipes.append(Pipe(start, end))
 
         print('Star 1: ' + str(first_star(pipes)))
-        print('Star 2 ' + str(second_star(pipes)))
+        print('Star 2: ' + str(second_star(pipes)))
