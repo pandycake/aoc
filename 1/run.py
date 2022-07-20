@@ -3,18 +3,6 @@
 from typing import List
 
 
-def generate_correct_answer():
-    with open("input.txt", "r") as f:
-        records = f.readlines()
-        records = [record.strip() for record in records]
-
-        print(compare_measurements(records))
-
-        # Second assignment requires an altered list:
-        values = calculate_window(values)
-        print(compare_measurements(values))
-
-
 def compare_measurements(records: List[int]) -> int:
     total = 0
     for i in range(1, len(records)):
@@ -25,13 +13,21 @@ def compare_measurements(records: List[int]) -> int:
 
 
 def calculate_window(records: List[int]) -> int:
-    records_window = []
+    windows = []
 
     for i in range(0, len(records) - 2):
-        records_window.append(sum(records[i: i + 3]))
+        windows.append(sum(records[i: i + 3]))
 
-    return records_window
+    return windows
 
 
 if __name__ == "__main__":
-    generate_correct_answer()
+    with open("input.txt", "r") as f:
+        measurements = f.readlines()
+        measurements = [int(m.strip()) for m in measurements]
+
+        print('Star 1: ' + str(compare_measurements(measurements)))
+
+        # Second star requires an altered list:
+        windows = calculate_window(measurements)
+        print('Star 2: ' + str(compare_measurements(windows)))

@@ -3,10 +3,11 @@
 from typing import List
 import queue
 
+
 class Grid:
     def __init__(self, rows: List[List[int]]) -> None:
         self.rows = rows
-        self.octopuses = self._get_locations() # = dict
+        self.octopuses = self._get_locations()  # = dict
         self.count = 0
 
     def _get_locations(self) -> dict:
@@ -14,9 +15,10 @@ class Grid:
         for i in range(0, len(self.rows)):
             for j in range(0, len(self.rows[i])):
                 coordinates[(i, j)] = self.rows[i][j]
-        
+
         return coordinates
-                
+
+
 def get_neighbours(location: tuple[int, int]) -> List[tuple[int, int]]:
     neighbours = []
     for i in range(-1, 2):
@@ -30,16 +32,16 @@ def get_neighbours(location: tuple[int, int]) -> List[tuple[int, int]]:
     return neighbours
 
 
-def first_assignment(rows: List[List[int]]) -> int:
+def first_star(rows: List[List[int]]) -> int:
     g = Grid(rows)
     q = queue.Queue()
 
     for i in range(0, 100):
-        g.octopuses = { key : value + 1 for key, value in g.octopuses.items()}
-        flashing = {key : value for key, value in g.octopuses.items() if value == 10}
+        g.octopuses = {key: value + 1 for key, value in g.octopuses.items()}
+        flashing = {key: value for key, value in g.octopuses.items() if value == 10}
         g.count += len(flashing.keys())
 
-        for octopus in flashing.keys():     
+        for octopus in flashing.keys():
             q.put(octopus)
 
         while (q.queue):
@@ -52,23 +54,26 @@ def first_assignment(rows: List[List[int]]) -> int:
                     q.put(n)
 
         # reset all flashing octopuses
-        g.octopuses = { key : (value if value < 10 else 0) for key, value in g.octopuses.items()}
+        g.octopuses = {key: (value if value < 10 else 0)
+                       for key, value in g.octopuses.items()}
 
     return g.count
 
+
 def check_all_flashing(grid: Grid) -> bool:
     return all(x == 0 for x in grid.octopuses.values())
-    
-def second_assignment(rows: List[List[int]]) -> int:
+
+
+def second_star(rows: List[List[int]]) -> int:
     g = Grid(rows)
     q = queue.Queue()
 
-    for i in range(0, 100000):
-        g.octopuses = { key : value + 1 for key, value in g.octopuses.items()}
-        flashing = {key : value for key, value in g.octopuses.items() if value == 10}
+    for i in range(0, 100000): # Generic placeholder, to fix
+        g.octopuses = {key: value + 1 for key, value in g.octopuses.items()}
+        flashing = {key: value for key, value in g.octopuses.items() if value == 10}
         g.count += len(flashing.keys())
 
-        for octopus in flashing.keys():     
+        for octopus in flashing.keys():
             q.put(octopus)
 
         while (q.queue):
@@ -80,24 +85,19 @@ def second_assignment(rows: List[List[int]]) -> int:
                     g.count += 1
                     q.put(n)
 
-
-
         # reset all flashing octopuses
-        g.octopuses = { key : (value if value < 10 else 0) for key, value in g.octopuses.items()}
+        g.octopuses = {key: (value if value < 10 else 0) for key, value in g.octopuses.items()}
         if check_all_flashing(g):
             return i + 1
 
     return -1
 
-def generate_correct_answer():
+
+if __name__ == "__main__":
     with open("input.txt", "r") as f:
         lines = [o.strip() for o in f.readlines()]
         octopuses = []
         for line in lines:
             octopuses.append([int(x) for x in line])
-        print(first_assignment(octopuses))
-        print(second_assignment(octopuses))
-
-
-if __name__ == "__main__":
-    generate_correct_answer()
+        print('Star 1: ' + str(first_star(octopuses)))
+        print('Star 2 ' + str(second_star(octopuses)))

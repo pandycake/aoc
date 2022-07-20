@@ -3,8 +3,10 @@
 from typing import List, Tuple
 import collections
 
+
 class Coordinate:
     __slots__ = ['x', 'y']
+
     def __init__(self, x: int, y: int) -> None:
         self.x = x
         self.y = y
@@ -28,12 +30,14 @@ class Coordinate:
 
 class Pipe:
     __slots__ = ['start', 'end']
+
     def __init__(self, start: Coordinate, end: Coordinate) -> None:
         self.start = start
         self.end = end
 
     def __str__(self) -> str:
         return (f'{self.start} -> {self.end}')
+
 
 def check_horizontal_pipe(pipe: Pipe) -> bool:
     return pipe.start.y == pipe.end.y
@@ -64,7 +68,7 @@ def get_coverage(pipe: Pipe) -> Tuple[List[Coordinate], List[Coordinate]]:
                 straight_coverage.append(Coordinate([pipe.start.x, i]))
     else:
         diagonal_coverage += get_diagonal_coverage(pipe)
-    
+
     return (straight_coverage, diagonal_coverage)
 
 
@@ -97,7 +101,7 @@ def get_diagonal_coverage(pipe: Pipe) -> List[Coordinate]:
     return coverage
 
 
-def first_assignment(pipes: List[Pipe]) -> int:
+def first_star(pipes: List[Pipe]) -> int:
     coverage = []
     for pipe in pipes:
         coverage += get_coverage(pipe)[0]
@@ -106,7 +110,7 @@ def first_assignment(pipes: List[Pipe]) -> int:
     return len(duplicates)
 
 
-def second_assignment(pipes: List[Pipe]) -> int:
+def second_star(pipes: List[Pipe]) -> int:
     coverage = []
     for pipe in pipes:
         straight_coverage, diagonal_coverage = get_coverage(pipe)
@@ -114,12 +118,10 @@ def second_assignment(pipes: List[Pipe]) -> int:
         coverage += diagonal_coverage
 
     duplicates = [item for item, count in collections.Counter(coverage).items() if count > 1]
-
     return len(duplicates)
 
 
-
-def generate_correct_answer():
+if __name__ == "__main__":
     with open("input.txt", "r") as f:
         records = f.readlines()
         pipes = []
@@ -129,9 +131,5 @@ def generate_correct_answer():
             end = Coordinate([int(coordinate) for coordinate in elements[2].split(",")])
             pipes.append(Pipe(start, end))
 
-    print(first_assignment(pipes))
-    print(second_assignment(pipes))
-
-
-if __name__ == "__main__":
-    generate_correct_answer()
+        print('Star 1: ' + str(first_star(pipes)))
+        print('Star 2 ' + str(second_star(pipes)))

@@ -53,13 +53,13 @@ def get_boards(records: List[str]) -> List[List[str]]:
             row = [number for number in records[i + j].strip().split(" ")
                    if number != ""]
             rows.append(row)
-        board = Board(rows)
-        boards.append(board)
+        b = Board(rows)
+        boards.append(b)
 
     return boards
 
 
-def first_assignment(numbers: List[str], boards: List[Board]) -> int:
+def first_star(numbers: List[str], boards: List[Board]) -> int:
     lowest_index = 100000000
     winning_board = None
 
@@ -72,8 +72,8 @@ def first_assignment(numbers: List[str], boards: List[Board]) -> int:
     return calculate_score(winning_board, numbers[:winning_board.index_earliest_bingo + 1])
 
 
-def second_assignment(numbers: List[str], boards: List[Board]) -> int:
-    """ Copy of first assignment, except finding the board with the highest index
+def second_star(numbers: List[str], boards: List[Board]) -> int:
+    """ Copy of first star, except finding the board with the highest index
         in the called numbers of their first bingo."""
     lowest_index = 0
     winning_board = None
@@ -87,15 +87,11 @@ def second_assignment(numbers: List[str], boards: List[Board]) -> int:
     return calculate_score(winning_board, numbers[:index_earliest_bingo + 1])
 
 
-def generate_correct_answer():
+if __name__ == "__main__":
     with open("input.txt", "r") as f:
         records = f.readlines()
         numbers = records[0].strip().split(",")
         boards = get_boards(records[2:])
 
-    print(first_assignment(numbers, boards))
-    print(second_assignment(numbers, boards))
-
-
-if __name__ == "__main__":
-    generate_correct_answer()
+        print('Star 1: ' + str(first_star(numbers, boards)))
+        print('Star 2 ' + str(second_star(numbers, boards)))

@@ -3,27 +3,37 @@
 from typing import List
 
 
-def solve_malfunction(patterns: List[str], output = List[str]) -> List[int]:
+def solve_malfunction(patterns: List[str], output=List[str]) -> List[int]:
     mapping_letters = {}
     mapping_numbers = {}
 
     # Easy numbers first
-    mapping_numbers['8'] = 'abcdefg' # for completeness
-    mapping_numbers['1'] = [pattern for pattern in patterns if len(pattern) == 2][0]
-    mapping_numbers['4'] = [pattern for pattern in patterns if len(pattern) == 4][0]
-    mapping_numbers['7'] = [pattern for pattern in patterns if len(pattern) == 3][0]
-    mapping_letters['a'] = (set(mapping_numbers['7']) - set(mapping_numbers['1'])).pop() 
+    mapping_numbers['8'] = 'abcdefg'  # for completeness
+    mapping_numbers['1'] = [
+        pattern for pattern in patterns if len(pattern) == 2][0]
+    mapping_numbers['4'] = [
+        pattern for pattern in patterns if len(pattern) == 4][0]
+    mapping_numbers['7'] = [
+        pattern for pattern in patterns if len(pattern) == 3][0]
+    mapping_letters['a'] = (set(mapping_numbers['7']) -
+                            set(mapping_numbers['1'])).pop()
 
     mapping_numbers['2'] = find_2(patterns, mapping_numbers['1'])
-    mapping_numbers['6'] = find_6([pattern for pattern in patterns if len(pattern) == 6], mapping_numbers['1'])
-    mapping_numbers['3'] = find_3([pattern for pattern in patterns if len(pattern) == 5], mapping_numbers['1'] + mapping_letters['a'])
-    mapping_numbers['5'] = find_5([pattern for pattern in patterns if len(pattern) == 5], mapping_numbers['2'], mapping_numbers['3'])
-    mapping_numbers['9'] = find_9([pattern for pattern in patterns if len(pattern) == 6], mapping_numbers['6'], mapping_numbers['1'], mapping_numbers['4'])
-    mapping_numbers['0'] = find_0([pattern for pattern in patterns if len(pattern) == 6], mapping_numbers['6'], mapping_numbers['9'])
+    mapping_numbers['6'] = find_6(
+        [pattern for pattern in patterns if len(pattern) == 6], mapping_numbers['1'])
+    mapping_numbers['3'] = find_3([pattern for pattern in patterns if len(
+        pattern) == 5], mapping_numbers['1'] + mapping_letters['a'])
+    mapping_numbers['5'] = find_5([pattern for pattern in patterns if len(
+        pattern) == 5], mapping_numbers['2'], mapping_numbers['3'])
+    mapping_numbers['9'] = find_9([pattern for pattern in patterns if len(
+        pattern) == 6], mapping_numbers['6'], mapping_numbers['1'], mapping_numbers['4'])
+    mapping_numbers['0'] = find_0([pattern for pattern in patterns if len(
+        pattern) == 6], mapping_numbers['6'], mapping_numbers['9'])
 
     numbers = []
     for pattern in output:
-        numbers.append(list(mapping_numbers.keys())[list(mapping_numbers.values()).index(pattern)])
+        numbers.append(list(mapping_numbers.keys())[
+                       list(mapping_numbers.values()).index(pattern)])
 
     return numbers
 
@@ -93,7 +103,7 @@ def recognize_patterns(signals: List[tuple]) -> List[int]:
     return results
 
 
-def first_assignment(signals: List) -> int:
+def first_star(signals: List) -> int:
     solved_displays = recognize_patterns(signals)
     count = 0
     for display in solved_displays:
@@ -102,7 +112,7 @@ def first_assignment(signals: List) -> int:
     return count
 
 
-def second_assignment(signals: List) -> int:
+def second_star(signals: List) -> int:
     count = 0
     solved_displays = recognize_patterns(signals)
     for display in solved_displays:
@@ -110,22 +120,17 @@ def second_assignment(signals: List) -> int:
     return count
 
 
-def generate_correct_answer():
+if __name__ == "__main__":
     with open("input.txt", "r") as f:
         records = f.readlines()
         combinations = []
         for record in records:
             line = []
             for element in record.strip().split('|'):
-                line.append([''.join(sorted(x))
-                            for x in element.split(' ') if x])
+                line.append([''.join(sorted(x)) for x in element.split(' ') if x])
             # Remove the 8-pattern for easier analysis of other displays
             line[0].remove('abcdefg')
             combinations.append(tuple(line))
 
-        print(first_assignment(combinations))
-        print(second_assignment(combinations))
-
-
-if __name__ == "__main__":
-    generate_correct_answer()
+        print('Star 1: ' + str(first_star(combinations)))
+        print('Star 2 ' + str(second_star(combinations)))
